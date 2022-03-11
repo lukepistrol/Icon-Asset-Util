@@ -1,0 +1,271 @@
+#!/bin/bash
+version="2.0"
+name="icon-asset-util"
+
+# Help
+Help()
+{
+  # Display Help
+  echo "Create App Icon Sets, remove alpha channel from PNGs in a directory"
+  Version
+  Copyright
+  echo
+  echo "Options:"
+  echo "-a     Create App Store Icon Sets from input file (1024x1024px)"
+  echo "       $name -a [path-to-input-file]"
+  echo "-r     Remove Alpha Channel of PNGs in input folder"
+  echo "       $name -r [path-to-directory]"
+  echo "-h     Print this Help."
+  echo "-v     Print software version and exit."
+  echo "-c     Print changelog."
+  echo
+  echo "See https://github.com/lukepistrol/Icon-Asset-Util for more information."
+}
+
+# Header
+Header() 
+{
+  echo "Icon Asset Utility: $version"
+  Copyright
+  echo 
+}
+
+# Copyright
+Copyright()
+{
+  echo "(C) 2022 Lukas Pistrol. https://github.com/lukepistrol/Icon-Asset-Util"
+  echo "Released under the MIT License."
+}
+
+# Version
+Version() 
+{
+  echo "Version:   $version"
+}
+
+# Changelog
+Changelog()
+{
+  echo "Changelog:"
+  echo "v2.0 IMPORTANT: Script was renamed to 'icon-asset-util'"
+  echo "     IMPORTANT: Syntax changed. See help for more info."
+  echo "     Create App Icon Sets"
+  echo "v1.2 Ommitted '.sh' file extension"
+  echo "v1.1 Show status when converting"
+  echo "     Display success message on completion"
+  echo "v1.0 Remove the alpha channel of all PNGs in a folder"
+  echo
+}
+
+# Create App Icon Asset Catalog [$1]...input-image-path
+CreateAsset() 
+{
+  if test -z "$1"
+  then
+      echo "No path provided."
+      echo "use -h for help"
+      exit;
+  else 
+    mkdir AppIcon.appiconset;
+    # 20
+    convert $1 -resize 20x20 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-20@1x.png;
+    convert $1 -resize 40x40 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-20@2x.png;
+    convert $1 -resize 60x60 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-20@3x.png;
+    #29
+    convert $1 -resize 29x29 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-29@1x.png;
+    convert $1 -resize 58x58 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-29@2x.png;
+    convert $1 -resize 87x87 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-29@3x.png;
+    #40
+    convert $1 -resize 40x40 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-40@1x.png;
+    convert $1 -resize 80x80 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-40@2x.png;
+    convert $1 -resize 120x120 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-40@3x.png;
+    #60
+    convert $1 -resize 120x120 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-60@2x.png;
+    convert $1 -resize 180x180 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-60@3x.png;
+    #76
+    convert $1 -resize 76x76 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-76@1x.png;
+    convert $1 -resize 152x152 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-76@2x.png;
+    #83.5
+    convert $1 -resize 167x167 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-83.5@2x.png;
+    #1024
+    convert $1 -resize 1024x1024 -background black -alpha remove -alpha off AppIcon.appiconset/Icon-1024@1x.png;
+
+    json='{
+  "images" : [
+    {
+      "filename" : "Icon-20@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "Icon-20@3x.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "Icon-29@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "Icon-29@3x.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "Icon-40@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "Icon-40@3x.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "Icon-60@2x.png",
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "Icon-60@3x.png",
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "size" : "60x60"
+    },
+    {
+      "filename" : "Icon-20@1x.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "Icon-20@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "20x20"
+    },
+    {
+      "filename" : "Icon-29@1x.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "Icon-29@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "29x29"
+    },
+    {
+      "filename" : "Icon-40@1x.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "Icon-40@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "40x40"
+    },
+    {
+      "filename" : "Icon-76@1x.png",
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "size" : "76x76"
+    },
+    {
+      "filename" : "Icon-76@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "76x76"
+    },
+    {
+      "filename" : "Icon-83.5@2x.png",
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "size" : "83.5x83.5"
+    },
+    {
+      "filename" : "Icon-1024@1x.png",
+      "idiom" : "ios-marketing",
+      "scale" : "1x",
+      "size" : "1024x1024"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}';
+
+    echo "$json" > AppIcon.appiconset/Contents.json
+    echo "Successfully created App Icon Set from $1"
+  fi
+}
+
+# Remove Alpha Channel [$1]...path-to-directory
+RemoveAlpha() 
+{
+  if test -z "$1"
+  then
+    echo "No path provided."
+    echo "use -h for help"
+    exit;
+  else
+    cd $1
+    count=0
+    for i in `ls *.png`; 
+    do 
+        echo "converting... $i"
+        convert $i -background black -alpha remove -alpha off $i; 
+        ((count=count+1))
+    done
+    echo "Successfully removed alpha channel from $count items."
+  fi
+}
+
+# SCRIPT START
+# Display Header on start of script
+Header
+
+# Get the args
+while getopts ":h :v :c :a :r" option; do
+  case $option in
+    a)  # create Asset
+        CreateAsset $2
+        exit;;
+    c)  # display Changelog
+        Changelog
+        exit;;
+    h)  # display Help
+        Help
+        exit;;
+    r)  # remove alpha channel
+        RemoveAlpha $2
+        exit;;
+    v)  # display Version
+        Version
+        exit;;
+    \?) # incorrect option
+        echo "Error: Invalid option."
+        echo "use -h for help"
+        exit;;
+   esac
+done
+
+# Exit if no args provided
+if [ -z "$*" ];
+then 
+  echo "Error: Invalid input."
+  echo "use -h for help"
+  exit 0;
+fi
