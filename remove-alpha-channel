@@ -1,18 +1,28 @@
 #!/bin/bash
-version="1.2"
+version="1.3"
 
 # Help
 Help()
 {
    # Display Help
    echo "Removes the Alpha channel from any PNG in given directory."
+   Version
+   Copyright
    echo
-   echo "Syntax: ./remove-alpha-channel [path-todirectory] [-h|v]"
-   echo "options:"
-   echo " -h     Print this Help."
-   echo " -v     Print software version and exit."
-   echo " -c     Print changelog."
+   echo "Syntax: ./remove-alpha-channel [path-todirectory]"
+   echo "Options:"
+   echo "-h     Print this Help."
+   echo "-v     Print software version and exit."
+   echo "-c     Print changelog."
    echo
+   echo "See https://github.com/lukepistrol/Remove-Alpha-Channel for more information."
+}
+
+# Copyright
+Copyright()
+{
+    echo "(C) 2022 Lukas Pistrol."
+    echo "Released under the MIT License."
 }
 
 # Version
