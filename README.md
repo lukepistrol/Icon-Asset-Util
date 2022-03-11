@@ -9,7 +9,7 @@ The workaround would be to open each exported PNG in Preview and export it again
 
 # 1. Installation
 ## 1.1 Install permanently (recommended)
-To install this script permanently just put it in your */usr/local/bin/* directory.
+To install this script permanently just put it in your ```/usr/local/bin/``` directory.
 
 ```bash
 $ sudo cp icon-asset-util /usr/local/bin/icon-asset-util
