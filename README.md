@@ -1,3 +1,5 @@
+> This will be deprecated since Xcode 14 allows a single 1024x1024 icon asset which gets scaled automatically.
+
 # Icon Asset Utility
 This script allows you to create iOS App Icon Assets which can be dragged directly into Xcode.
 
